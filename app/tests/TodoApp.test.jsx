@@ -10,4 +10,16 @@ describe('TodoApp', () => {
   it('should exist', ()=> {
     expect(TodoApp).toExist();
     });
+
+    it('should add todo to the todos state onHandleAddTodo', () => {
+      var todoText = 'Play Fallout 4';
+      var todoApp = TestUtils.renderIntoDocument(<TodoApp/>);
+
+      //update todos state to be nothing
+      todoApp.setState({todos: []});
+      //add todo
+      todoApp.handleAddTodo(todoText);
+
+      expect(todoApp.state.todos[0].text).toBe(todoText);
+    });
   });
