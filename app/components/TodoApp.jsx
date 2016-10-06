@@ -12,17 +12,21 @@ var TodoApp = React.createClass ({
       todos: [
         {
           id: uuid(),
-          text: 'Walk the dog'
+          text: 'Walk the dog',
+          completed: false
         }, {
           id: uuid(),
-          text:'Clean the yard'
+          text:'Clean the yard',
+          completed: true
         },
         {
           id: uuid(),
-          text: 'Study React'
+          text: 'Study React',
+          completed: true
         }, {
           id: uuid(),
-          text:'Eat all of the foods'
+          text:'Eat all of the foods',
+          completed: false
         }
       ]
     };
@@ -36,7 +40,8 @@ var TodoApp = React.createClass ({
           //id will use UUID to help with a unique id that is less buggy
           // installed node-uuid to help.
           id: uuid(),
-          text: text
+          text: text,
+          completed: false
         }
       ]
     });
@@ -47,6 +52,23 @@ var TodoApp = React.createClass ({
       showCompleted: showCompleted,
       searchText: searchText.toLowerCase()
     });
+  },
+  handleToggle: function (id) {
+    //passes to Todo. However, with the todo list component, first
+    // needs to be passed there, then into todoList.jsx down to the
+    //individual item
+    // alert(id); this checked to see if it was wired up properly
+    //To toggle. Find item in todos array that matches the id and update completed status.
+    var updatedTodos = this.state.todos.map((todo) => {
+      //check to see if the id iterrating over matches the one passed in
+      if(todo.id === id) {
+        todo.completed = !todo.completed;
+      }
+      //return item passed in if the id doesn't match
+      return todo;
+      });
+      //update state in new array
+      this.setState({todos: updatedTodos});
   },
   render: function () {
     //pass todos down
@@ -59,7 +81,7 @@ var TodoApp = React.createClass ({
     return (
       <div>
         <TodoSearch onSearch={this.handleSearch}/>
-        <TodoList todos={todos}/>
+        <TodoList todos={todos} onToggle={this.handleToggle}/>
         <AddTodo onAddTodo={this.handleAddTodo}/>
       </div>
     )

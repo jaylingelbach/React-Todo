@@ -5,10 +5,15 @@ var React = require('react');
 var Todo = React.createClass ({
   render: function() {
 
-    var {text, id} = this.props;
+    var {text, id, completed} = this.props;
     return (
-      <div>
-        <p>{id}. {text}</p>
+      // when checkbox clicked toggles via the id.
+      // onToggle has been passed from TodoApp, to TodoList, then here.
+      <div onClick={() => {
+          this.props.onToggle(id);
+        }}>
+        <input type="checkbox" checked={completed}/>
+        {text}
       </div>
     )
   }

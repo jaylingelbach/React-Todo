@@ -16,7 +16,8 @@ var TodoList = React.createClass ({
         return (
           // the second arg passes down all attributes on an obj to a react component
           //without explicity defining everything. {...todo}
-          <Todo key={todo.id} {...todo}/ >
+          // third arg is passed from todo app (handleToggle)
+          <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>
         );
       });
     };
