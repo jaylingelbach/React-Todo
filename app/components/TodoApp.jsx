@@ -58,7 +58,8 @@ var TodoApp = React.createClass ({
   },
   render: function () {
     //pass todos down
-    var {todos} = this.state;
+    var {todos, showCompleted, searchText} = this.state;
+    var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
     //render TodoList passing it the todo array
     //render AddTodo component here
     //pass it AddTodo method
@@ -67,7 +68,7 @@ var TodoApp = React.createClass ({
     return (
       <div>
         <TodoSearch onSearch={this.handleSearch}/>
-        <TodoList todos={todos} onToggle={this.handleToggle}/>
+        <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
         <AddTodo onAddTodo={this.handleAddTodo}/>
       </div>
     )
