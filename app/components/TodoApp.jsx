@@ -1,5 +1,6 @@
 var React = require('react');
 var uuid = require('node-uuid');
+var moment = require('moment');
 
 var TodoList = require('TodoList');
 var AddTodo = require('AddTodo');
@@ -27,7 +28,9 @@ var TodoApp = React.createClass ({
           // installed node-uuid to help.
           id: uuid(),
           text: text,
-          completed: false
+          completed: false,
+          createdAt: moment().unix(),
+          completedAt: undefined
         }
       ]
     });
@@ -49,6 +52,8 @@ var TodoApp = React.createClass ({
       //check to see if the id iterrating over matches the one passed in
       if(todo.id === id) {
         todo.completed = !todo.completed;
+        // if is completed pass in timestamp, if not reset to undefined
+        todo.completedAt = todo.completed ? moment().unix() : undefined;
       }
       //return item passed in if the id doesn't match
       return todo;
