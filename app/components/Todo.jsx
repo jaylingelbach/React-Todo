@@ -1,13 +1,12 @@
 var React = require('react');
 var moment = require('moment');
 
-//grabs the props from the spread operator in TodoList and renders to the screen
-
 
 var Todo = React.createClass ({
   render: function() {
 
     var {text, id, completed, createdAt, completedAt} = this.props;
+    var todoClassName = completed ? 'todo todo-completed' : 'todo'
     //new render function inside render function to pass to momentformat (user readable date)
     var renderDate = () => {
       var message = 'Created ';
@@ -24,12 +23,17 @@ var Todo = React.createClass ({
     return (
       // when checkbox clicked toggles via the id.
       // onToggle has been passed from TodoApp, to TodoList, then here.
-      <div onClick={() => {
+      <div className= {todoClassName} onClick={() => {
           this.props.onToggle(id);
         }}>
-        <input type="checkbox" checked={completed}/>
-        <p>{text}</p>
-        <p>{renderDate()}</p>
+        <div>
+          <input type="checkbox" checked={completed}/>
+        </div>
+
+          <div className="todo-subtext">
+            <p>{text}</p>
+            <p>{renderDate()}</p>
+          </div>
       </div>
     )
   }

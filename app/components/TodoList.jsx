@@ -10,6 +10,11 @@ var TodoList = React.createClass ({
   render: function() {
     var {todos} = this.props;
     var renderTodos = () => {
+      if (todos.length === 0) {
+        return (
+          <p className="container__message"> Nothing to do</p>
+        );
+      }
       //iterate over the array return an array of jsx
       // for every todo return new jsx that is rendered to the screen
       return todos.map((todo) => {
